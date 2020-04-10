@@ -1,0 +1,24 @@
+<meta charset="UTF-8">
+
+<script>
+
+    function pulaLinha() {
+        document.write("<br>");
+    }
+    function mostra(frase) {
+        document.write(frase);
+    }
+    function calculaImc(peso, altura) {
+        var meuImc = Math.round(peso / (altura * altura));
+        return meuImc;
+    }
+
+    mostra("<h1>" + "Calculando IMCs!" + "</h1>" + "<hr>");
+    var imcPessoal = calculaImc(31.5, 1.42);
+    var imcAmigo = calculaImc(37, 1.48);
+
+    mostra("O meu imc é, aproximadamente, " + imcPessoal);
+    pulaLinha();
+    mostra("O imc do meu amigo é, aproximadamente, " + imcAmigo);
+
+</script>

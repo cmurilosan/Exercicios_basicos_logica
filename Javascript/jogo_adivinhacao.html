@@ -1,0 +1,52 @@
+<meta charset="UTF-8">
+<center>
+    <h1>Programa de Adinhação<h1>
+            <h2>Para jogar em dupla</h2>
+</center>
+<br>
+<b>Instruções:</b>
+<br>
+1 - O priemiro da dulpa insere um número no <i>pop-up</i> sem o segundo olhar.<br>
+2 - A seguir, o segundo pode inserir 3 palpites.<br>
+<br>
+<input />
+<button>Palpite</button>
+<br>
+<script>
+    //função de quebra de linha
+    function pulaLinha() {
+        document.write("<br>");
+        document.write("<br>");
+    }
+    //função de imprimir na tela
+    function exibeTela(sentenca) {
+        document.write(sentenca);
+        pulaLinha();
+    }
+    //função de verificação dos palpites
+    function verificaNumero() {
+        if (palpite.value == numero) {
+            alert("Você ACERTOU!!!!");
+            exibeTela("FIM DO PROGRAMA")
+        } else {
+            alert("Você errou!");
+            palpite = document.querySelector("input");
+            palpite.value = "";
+            palpite.focus();
+            tentativa++
+        }        
+        if (tentativa == maxTentativas) {
+            exibeTela("Você não tem mais tentativas. O numero inserido foi " + numero + ".");
+            exibeTela("FIM DO PROGRAMA");
+        }
+    }
+    //jogar
+    var palpite = document.querySelector("input");
+    palpite.value = "";
+    palpite.focus();
+    var numero = parseInt(prompt("Insira um número entre 1 e 10."));
+    var botaoPalpite = document.querySelector("button");
+    botaoPalpite.onclick = verificaNumero;
+    var tentativa = 0;
+    var maxTentativas = 3;
+</script>
