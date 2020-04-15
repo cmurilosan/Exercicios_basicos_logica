@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+
+<script>
+
+  var maximoTentativas = 3;
+  
+  var i = 1;
+
+  while (i <= maximoTentativas) {
+    
+    var idade = prompt("Insira sua idade");
+
+    if(isNaN(idade) == false){
+
+      document.write("A idade inserida foi " + idade);
+
+      break;
+
+    } else if(isNaN(idade) == true && i < maximoTentativas){
+
+      alert("Informação inválida, insira um número");
+
+    }    
+
+    i = i + 1;
+
+    if(i > maximoTentativas){
+
+    alert("Número de tentativas excedido");
+
+  }
+
+}
+
+</script>

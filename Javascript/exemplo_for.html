@@ -1,0 +1,23 @@
+<meta charset="UTF-8">
+<script>
+  function saltaLinha() {
+    document.write("<br><br>");
+  }
+
+  function mostra(exibe) {
+    document.write(exibe);
+    saltaLinha();
+  }
+
+  let numero = 29;
+  for (let contador = 30; contador <= 40; contador++) {
+    if (numero == 32 || numero == 36) {
+      numero++;
+    }
+    else {
+      numero++;
+      mostra(numero);
+    }
+  }
+  mostra("FIM"); 
+</script>
