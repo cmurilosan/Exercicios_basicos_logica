@@ -1,0 +1,57 @@
+<meta charset="utf-8">
+<canvas width="600" height="400"></canvas>
+<br>
+Choose a color <input type="color">
+
+<script>
+  var canvas = document.querySelector('canvas');
+  var brush = canvas.getContext('2d');
+  var palette = document.querySelector('input');
+
+  brush.fillStyle = 'lightblue';
+  brush.fillRect(0, 0, 600, 400);
+
+  alert("Welcome to Pam's secret. You're just a couple of clicks away of discovering my secret. Also, try pressing Alt/Shift at some point :)")
+
+  function drawCircle(x) {
+
+    brush.fillStyle = 'lightpink';
+    brush.beginPath();
+    brush.arc(x, 150, 90, 0, 2 * 3.14);
+    brush.fill();
+
+  }
+
+  function drawTriangle() {
+    brush.beginPath();
+    brush.fillStyle = palette.value;
+    brush.moveTo(100, 160);
+    brush.lineTo(200, 325);
+    brush.lineTo(295, 160);
+    brush.fill();
+  }
+
+  function drawText(text, x, y) {
+    brush.font = '20px Georgia';
+    brush.fillStyle = 'purple';
+    brush.fillText(text, x, y);
+
+    event.shiftKey = true
+
+  }
+
+  function drawIceCream() {    
+
+    if (event.shiftKey) {
+      drawCircle(198);
+      drawText('I love Ice Cream', 300, 150);
+    } 
+    if (event.altKey) {
+      drawTriangle();
+      drawText('You can also change the color of the cone', 20, 350);
+    }
+
+  }
+  canvas.onclick = drawIceCream;
+
+</script>
