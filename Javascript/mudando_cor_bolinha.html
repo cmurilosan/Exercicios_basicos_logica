@@ -1,0 +1,33 @@
+<canvas width="600" height="400">
+  <script>
+
+    var tela = document.querySelector("canvas")
+    var pincel = tela.getContext("2d")
+
+    function mudarCor() {
+      corAtual++
+      if (corAtual >= cores.length) {
+        corAtual = 0                
+      }
+      
+      alert("funcionou")
+      return false
+    }
+
+    var corAtual = 0
+    var cores = ["blue", "yellow", "red"];
+
+    function criarCirculos(informacao) {
+      var posicaoMouseX = informacao.pageX
+      var posicaoMouseY = informacao.pageY
+      pincel.fillStyle = cores[corAtual];
+      pincel.beginPath()
+      pincel.arc(posicaoMouseX, posicaoMouseY, 50, 0, 2 * 3.14)
+      pincel.fill()
+    }
+
+    tela.onclick = criarCirculos
+    tela.oncontextmenu = mudarCor;
+
+
+  </script>
