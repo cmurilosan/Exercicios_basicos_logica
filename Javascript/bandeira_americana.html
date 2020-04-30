@@ -1,0 +1,43 @@
+<canvas width="738" height="390"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    // Altura da bandeira (Única variável)
+    var heightFlag = 390;
+
+    // O restante do código é composto por constantes conforme a proporção da bandeira
+
+    // Largura da bandeira
+    var widthFlag = heightFlag * 26 / 13.75;
+
+    // Altura das faixas (são 13 faixas, 7 vermelhas e 6 brancas)
+    var linha = heightFlag / 13;
+
+    // Largura do campo azul
+    var widthBlue = widthFlag * 10.4 / 26;
+
+    // Altura do campo azul, que corresponde à altura de 7 faixas
+    var heightBlue = linha * 7;
+
+    // "Pintar" fundo branco
+    pincel.fillStyle = 'white';
+    pincel.fillRect(0, 0, widthFlag, heightFlag);
+
+    // Pintar faixas vermelhas
+    pincel.fillStyle = 'red';
+
+    // Pintar faixas vermelhas até completar 7, pulando o espaço das brancas (por isso o * 2 )
+    count = 0;
+    while (count <= 6) {
+        pincel.fillRect(0, linha * count * 2, widthFlag, linha);
+        count++
+    }
+
+    // Pintar campo azul
+    pincel.fillStyle = 'darkblue';
+    pincel.fillRect(0, 0, widthBlue, heightBlue);
+
+</script>

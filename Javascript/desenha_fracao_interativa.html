@@ -1,0 +1,57 @@
+<meta charset="utf-8">
+
+<canvas width="1100" height="400"> </canvas>
+
+
+<script>
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    var quadrado = parseInt(prompt("QUAL É O DENOMINADOR DA FRAÇÃO ? "));
+    var pintados = parseInt(prompt("QUAL É O NUMERADOR DA FRAÇÃO ? "));
+
+
+
+
+    function desenhaQuadrado(posicao_x, posicao_y, largura, altura, cor) {
+        // aqui precisamos usar fillRect, strokeRect, etc 
+
+        pincel.fillStyle = (cor);
+        pincel.fillRect(posicao_x, posicao_y, largura, altura);
+        pincel.strokeStyle = 'black'
+        pincel.strokeRect(posicao_x, posicao_y, largura, altura);
+    }
+
+
+    function desenhaTexto(texto, x, y) {
+        pincel.font = '20px Georgia';
+        pincel.fillStyle = 'black';
+        pincel.fillText(texto, x, y);
+    }
+    var px = 50;
+    var py = 90;
+    var cor = 'DarkGreen'
+    var largura = 50;
+    var altura = 50;
+
+    desenhaTexto("A FRAÇÃO É :", 150, 30);
+
+
+
+
+    for (var i = 0; i < quadrado; i++) {
+        for (var j = 0; j < pintados; j++) {
+            if (i == pintados) {
+                cor = 'white'
+            }
+        }
+        desenhaQuadrado(px, py, largura, altura, cor)
+        px += 50;
+    }
+
+    desenhaTexto(pintados, 200, py + 80);
+    desenhaTexto("__", 195, py + 89);
+    desenhaTexto(quadrado, 200, py + 110);
+
+
+</script>

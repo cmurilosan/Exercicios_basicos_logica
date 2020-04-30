@@ -1,0 +1,30 @@
+<meta charset="UTF-8">
+
+<script>
+  function pulaLinha() {
+    document.write("<br><br>");
+  }
+
+  function mostra(frase) {
+    document.write(frase);
+    pulaLinha();
+  }
+
+  var contador = 1;
+  var numeroTabuada = parseInt(prompt("Deseja ver o resultado da tabuada de qual número?"));
+
+  // valida se o numero informado e valido
+  while (isNaN(numeroTabuada)) {
+    numeroTabuada = parseInt(prompt("Número inválido. Deseja ver o resultado da tabuada de qual número?"));
+  }
+
+  mostra("<big>Tabuada do número " + numeroTabuada + ": </big>");
+
+  while (contador <= 10) {
+    mostra(numeroTabuada + " x " + contador + " = " + (numeroTabuada * contador));
+    contador++;
+  }
+
+  mostra("Fim");
+
+</script>
