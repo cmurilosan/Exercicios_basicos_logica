@@ -1,0 +1,84 @@
+<meta charset="utf-8">
+<canvas width="600" height="400"></canvas>
+
+<script>
+    var canvas = document.querySelector('canvas');
+    var brush = canvas.getContext('2d');
+    brush.fillStyle = 'lightgray';
+    brush.fillRect(0, 0, 600, 400);
+
+    var reloadTax = 10;
+    var x = 30;
+    var y = 30;
+    var arrowUp = 38;
+    var arrowDown = 40;
+    var arrowRight = 39;
+    var arrowLeft = 37;
+
+    function drawSquare(squareX, squareY, width, height) {
+        brush.fillStyle = 'white';
+        brush.beginPath();
+        brush.fillRect(squareX, squareY, width, height);
+    }
+
+    function drawPath() {
+        drawSquare(10, 20, 35, 375);
+        drawSquare(20, 360, 200, 35);
+        drawSquare(185, 365, 35, -200);
+        drawSquare(200, 165, 360, 35);
+        drawSquare(550, 165, 35, 200);
+
+    }
+
+    function drawCircle(x, y) {
+        brush.fillStyle = 'red';
+        brush.beginPath();
+        brush.arc(x, y, 10, 0, 2 * Math.PI);
+        brush.fill();
+    }
+    /*
+    function clearPage(){  // queria que so a bolinha sumisse, mas com essa funcao, some a pagina inteira, como corrigir?
+        brush.clearRect (0,0,600,400);
+    }
+    */
+    function reloadPage(event) {
+        drawCircle(x, y);
+    }
+
+    function whatKey(event) {
+        if (event.keyCode == arrowUp) {
+            y = y - reloadTax;
+        } else if (event.keyCode == arrowDown) {
+            y = y + reloadTax;
+        } else if (event.keyCode == arrowRight) {
+            x = x + reloadTax;
+        } else if (event.keyCode == arrowLeft) {
+            x = x - reloadTax;
+        }
+    }
+
+    function drawText(text, x, y) {
+        brush.font = '17px Georgia';
+        brush.fillStyle = 'black';
+        brush.fillText(text, x, y)
+    }
+
+    /*
+    function drawInsideCanvas (event){
+        x = event.pageX - offsetLeft;
+        y = event.pageY - offsetTop;
+        if (x >= 20 && x <= 580 && y >= 20 && y <= 380){
+            return true;
+            } else {
+            return false;
+        }
+    }
+    */
+    drawPath();
+    setInterval(reloadPage, 10);
+    drawText('Start', 10, 15);
+    drawText('Finish', 540, 390);
+    document.onkeydown = whatKey;
+
+
+</script>
