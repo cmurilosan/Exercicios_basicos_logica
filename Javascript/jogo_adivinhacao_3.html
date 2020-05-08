@@ -1,0 +1,78 @@
+<meta charset="UTF-8">
+
+Digite os seus chutes:
+<br>
+<input />
+<button>Sabedoria</button>
+
+<script>
+
+    //teste de sabedoria começa agora
+
+    alert("Comece seu teste");
+    var desafio = parseInt(prompt("Quantos números você quer ter a chance de acertar?"));
+
+    var palpite = document.querySelector("input");
+    palpite.focus()
+
+    function maquinaSorteia() {
+
+        return Math.round(Math.random() * 10);
+    }
+
+    function sorteiaMais(quantidade) {
+
+        var misterios = [];
+        var numero = 1;
+
+        while (numero <= quantidade) {
+
+            var sorteia = maquinaSorteia();
+            var repetido = false;
+
+            if (sorteia !== 0) {
+                for (posicao = 0; posicao < misterios.length; posicao++) {
+
+                    if (misterios[posicao] == sorteia) {
+                        repetido = true;
+                        break;
+                    }
+                }
+
+                if (repetido == false) {
+                    misterios.push(sorteia);
+                    numero++;
+                }
+            }
+        }
+        return misterios;
+    }
+
+    var misterios = sorteiaMais(desafio);
+    console.log(misterios);
+
+    function sera() {
+
+        var acertou = false;
+
+        for (var posicao = 0; posicao < misterios.length; posicao++) {
+
+            if (palpite.value == misterios[posicao]) {
+
+                alert("Você está sabendo");
+                acertou = true;
+                break;
+            }
+        }
+        if (acertou == false) {
+
+            alert("Estude mais");
+        }
+        palpite.value = "";
+        palpite.focus();
+    }
+
+    var sabedoria = document.querySelector("button");
+    sabedoria.onclick = sera;
+
+</script>

@@ -1,0 +1,46 @@
+<meta charset="UTF-8">
+<script>
+
+    function pulaLinha() {
+        document.write("<br>");
+    }
+
+    function mostra(frase) {
+        document.write("<big>" + frase + "</big>");
+        pulaLinha();
+    }
+
+    function sorteia(n) {
+        return Math.round(Math.random() * n);
+    }
+
+    var numeroPensado = sorteia(10);
+    console.log(numeroPensado);
+    cont = 1;
+
+    while (cont <= 3) {
+        var chute = parseInt(prompt("Digite um número"));
+
+        if (chute == numeroPensado) {
+            if (cont == 1 || cont == 2 || cont == 3) {
+
+                mostra("Acertou na sua " + cont + "º tentativa!!! É isso aí :-)");
+                break;
+            }
+
+        } else if (cont == 1) {
+            alert("Errou!");
+            mostra("Seu PRIMEIRO chute foi " + chute + ". Errou na primeira rs");
+        } else if (cont == 2) {
+            alert("Errou!");
+            mostra("Seu SEGUNDO chute foi " + chute + ". Teve uma segunda chance!!!");
+        } else if (cont == 3) {
+            alert("Errou!");
+            mostra("Seu TERCEIRO chute foi " + chute + ". Acabaram suas chances!!! :-(");
+        }
+        cont++;
+    }
+
+    mostra("Fim!!!");
+
+</script>
