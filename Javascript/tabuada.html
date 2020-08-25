@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>HTML e JavaScript</title>
+</head>
+
+<body>
+    *** Tabuada ***
+    <br /><br />
+    Qual tabuada deseja calcular: <input id="txtiTabuada" type="text" />
+    <button id="btnCalcular" onclick="calculaTabuada(txtiTabuada.value);">Calcular</button>
+
+    <br /><br />
+    <div id="divTabuada"></div>
+</body>
+
+<script>
+    //Tabuada
+    function calculaTabuada(valor) {
+        let x = 1;
+        let resultado = "";
+        var idivTabuada = document.getElementById('divTabuada');
+
+        //faz o replace caso digite o valor com virgula ','
+        valor = valor.replace(',', '.');
+
+        //valida se e número usando Regular Expresion 
+        if (eNumero(valor)) {
+            while (x <= 10) {
+                resultado += (valor + " vezes " + x + " é " + (valor * x) + "<br>");
+                x = x + 1;
+            }
+        } else {
+            resultado = "Informe um valor válido para calcular a tabuada!";
+        }
+
+        idivTabuada.innerHTML = resultado;
+    }
+
+    function eNumero(valorEntrada) {
+        //let re = /^[0-9]+$/; //so inteiro
+        let re = /^\d+(?:\.\d+)?$/; //numero quebrado
+        return (re.test(valorEntrada));
+    }
+</script>
+
+</html>

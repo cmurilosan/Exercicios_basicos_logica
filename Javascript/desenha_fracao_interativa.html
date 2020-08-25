@@ -10,9 +10,6 @@
     var quadrado = parseInt(prompt("QUAL É O DENOMINADOR DA FRAÇÃO ? "));
     var pintados = parseInt(prompt("QUAL É O NUMERADOR DA FRAÇÃO ? "));
 
-
-
-
     function desenhaQuadrado(posicao_x, posicao_y, largura, altura, cor) {
         // aqui precisamos usar fillRect, strokeRect, etc 
 
@@ -21,7 +18,6 @@
         pincel.strokeStyle = 'black'
         pincel.strokeRect(posicao_x, posicao_y, largura, altura);
     }
-
 
     function desenhaTexto(texto, x, y) {
         pincel.font = '20px Georgia';
@@ -35,9 +31,6 @@
     var altura = 50;
 
     desenhaTexto("A FRAÇÃO É :", 150, 30);
-
-
-
 
     for (var i = 0; i < quadrado; i++) {
         for (var j = 0; j < pintados; j++) {

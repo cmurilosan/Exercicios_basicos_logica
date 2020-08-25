@@ -1,0 +1,191 @@
+<canvas width="600" height="400">
+
+    <script>
+        var canvas = document.querySelector('canvas');
+        var brush = canvas.getContext('2d');
+        brush.fillStyle = "lightgray";
+
+        //Esta variável corresponde a função blockRetangle
+        var WIDTH = canvas.width, HEIGHT = canvas.height;
+
+        //Movimento do personagem
+        var arrowUp = 38, arrowDown = 40, arrowRight = 39, arrowLeft = 37;
+        var moveUp = moveDown = moveRight = moveLeft = false;
+
+        //Estabeleci o tamanho de um quadrado na tela. É como se eu dividisse meu canvas em vários quadradinhos de 20
+        var tileSize = 20;
+
+        //Personagem
+        var player = {
+            x: 26,
+            y: 26,
+            width: 28,
+            height: 28,
+            speed: 1
+        };
+
+        //Array de paredes
+        var walls = [];
+
+        //Desenho meu caminho através de 0 e 1.
+        // 0 = caminho e 1 = parede
+        //Crie seu próprio
+        var maze = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ];
+
+        //Crio minha array de paredes e guardo na array acima - var walls = [];
+        for (var row in maze) {
+            for (var column in maze[row]) {
+                var tile = maze[row][column];
+                if (tile === 1) {
+                    var wall = {
+                        x: tileSize * column,
+                        y: tileSize * row,
+                        width: tileSize,
+                        height: tileSize
+                    };
+                    walls.push(wall);
+                }
+            }
+        }
+
+        //Função para limitar o personagem a ficar no caminho e não atravessar a parede
+        function blockRectangle(objA, objB) {
+            var distX = (objA.x + objA.width / 2) - (objB.x + objB.width / 2);
+            var distY = (objA.y + objA.height / 2) - (objB.y + objB.height / 2);
+
+            var sumWidth = (objA.width + objB.width) / 2;
+            var sumHeight = (objA.height + objB.height) / 2;
+
+            if (Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight) {
+                var overlapX = sumWidth - Math.abs(distX);
+                var overlapY = sumHeight - Math.abs(distY);
+
+                if (overlapX > overlapY) {
+                    objA.y = distY > 0 ? objA.y + overlapY : objA.y - overlapY;
+                } else {
+                    objA.x = distX > 0 ? objA.x + overlapX : objA.x - overlapX;
+                }
+            }
+        }
+
+        //Funções para o personagem caminhar - keydownHandler, keyupHandler e update
+        window.addEventListener("keydown", keydownHandler, false);
+        window.addEventListener("keyup", keyupHandler, false);
+
+        function keydownHandler(e) {
+            var key = e.keyCode
+            switch (key) {
+                case arrowLeft:
+                    moveLeft = true;
+                    break;
+                case arrowUp:
+                    moveUp = true;
+                    break;
+                case arrowRight:
+                    moveRight = true;
+                    break;
+                case arrowDown:
+                    moveDown = true;
+                    break;
+            }
+        }
+
+        function keyupHandler(e) {
+            var key = e.keyCode
+            switch (key) {
+                case arrowLeft:
+                    moveLeft = false;
+                    break;
+                case arrowUp:
+                    moveUp = false;
+                    break;
+                case arrowRight:
+                    moveRight = false;
+                    break;
+                case arrowDown:
+                    moveDown = false;
+                    break;
+            }
+        }
+
+        function update() {
+            if (moveLeft && !moveRight) {
+                player.x -= player.speed;
+            } else
+                if (moveRight && !moveLeft) {
+                    player.x += player.speed;
+                }
+            if (moveUp && !moveDown) {
+                player.y -= player.speed;
+            } else
+                if (moveDown && !moveUp) {
+                    player.y += player.speed
+                }
+            //Trabalha as limitações entre meu caminho e personagem
+            for (var i in walls) {
+                var wall = walls[i];
+                blockRectangle(player, wall);
+            }
+        }
+
+        //Desenha meu caminho
+        function render() {
+            brush.clearRect(0, 0, WIDTH, HEIGHT);
+            brush.save();
+            for (var row in maze) {
+                for (var column in maze[row]) {
+                    var tile = maze[row][column];
+                    if (tile === 1) {
+                        var x = column * tileSize;
+                        var y = row * tileSize;
+                        brush.fillRect(x, y, tileSize, tileSize);
+                    }
+                }
+            }
+            //Desenha o texto
+            drawText('Start', 23, 15);
+            drawText('Finish', 540, 397);
+            
+            //Desenha meu personagem
+            brush.fillStyle = 'red';
+            brush.fillRect(player.x, player.y, player.width, player.height);
+            brush.restore();
+        }
+
+        //Utilizei sua função para o texto
+        function drawText(text, x, y) {
+            brush.font = '17px Georgia';
+            brush.fillStyle = 'black';
+            brush.fillText(text, x, y)
+        }
+
+        //Esta função faz o loop constante
+        function loop() {
+            update();
+            render();
+            requestAnimationFrame(loop, canvas);
+        }
+        requestAnimationFrame(loop, canvas);
+
+    </script>
