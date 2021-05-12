@@ -1,0 +1,90 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    </head>
+    <h1 class="titulo">FASE - TREINAMENTO</h1>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        var tela = document.querySelector('canvas');
+        var pincel = tela.getContext('2d');
+        pincel.fillStyle = "#000000";
+        pincel.fillRect(0, 0, 600, 400);
+        // indicações circulo-personagem
+        var a = 290;
+        var b = 190;
+    
+        //indicações primeiro-obstaculo
+        var gerarNumero = Math.random() * 380;
+        var c = 580;
+        var d = Math.round(gerarNumero);
+        console.log(d);
+        // códigos do teclado
+    
+        var esquerda = 37;
+        var cima = 38;
+        var direita = 39;
+        var baixo = 40;
+    
+        // taxa de incremento
+        var taxa = 10;
+              desenhaCirculo(a, b, 10);
+    
+        function primeiroObstaculo(c, d) {
+            pincel.fillStyle = "pink";
+            pincel.fillRect(c, d, 20, 20);
+        }
+        function desenhaCirculo(a, b, raio) {
+    
+            pincel.fillStyle = 'blue';
+            pincel.beginPath();
+            pincel.arc(a, b, raio, 0, 2 * Math.PI);
+            pincel.fill();
+        }
+    
+        function limpaTela(evento) {
+    
+            pincel.clearRect(0, 0, 600, 400);
+             pincel.fillStyle = "#000000";
+        pincel.fillRect(0, 0, 600, 400);
+    
+        }
+    
+        function atualizaTela() {
+    
+            limpaTela();
+            desenhaCirculo(a, b, 10);
+    
+        }
+    
+        setInterval(atualizaTela, 20);
+    
+    
+        function leDoTeclado(evento) {
+    
+            desenhaCirculo(a, b, 10);
+            if (evento.keyCode == cima) {
+                b = b - taxa
+            } 
+                else    if (evento.keyCode == baixo) {
+                b = b + taxa
+            } 
+                else   if (evento.keyCode == esquerda) {
+                a = a - taxa
+            } 
+                else    if (evento.keyCode == direita) {
+                a = a + taxa
+            } 
+    
+        }
+        function obstaculosAutomaticos1() {
+            var c = 580;
+            var sentido = -1;
+            var gerarNumero = Math.random() * 380
+            var d = Math.round(gerarNumero);
+            function beiraMar() {
+                
+                primeiroObstaculo(c, d);
+                c = c + sentido;
+            }
+        }

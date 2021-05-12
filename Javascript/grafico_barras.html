@@ -1,90 +1,58 @@
-<meta charset="utf-8">
+<meta charset="UTF-8">
 
-<canvas width="1000" height="400"></canvas>
+<b><big>Adivinhe o número de 0 a 10!</b></big>
+<br>
+<input>
+<button>Dê seu palpite</button>
 
 <script>
-    //Representa os percentuais de cada ano.
-    var serie2015 = [50, 25, 20, 5];
-    var serie2016 = [65, 20, 13, 2];
-    var navegador = ['Chrome', 'Firefox', 'Safari', 'outros'];
-    var cores = ['blue', 'green', 'yellow', 'red'];
-
-    var py = 0;
-    var largura = 0;
-    var altura = 50;
-    var cor = '';
-    desenhaTexto(0, 20, 'Procuramos em alguns relatórios da Alura quais navegadores os nossos alunos utilizavam em 2015 e 2016. Separamos os dados:');
-
-    function desenhaRetangulo(x, y, altura, largura, cor) {
-        var tela = document.querySelector('canvas');
-        var pincel = tela.getContext('2d');
-
-        pincel.fillStyle = cor;
-        pincel.fillRect(x, y, largura, altura);
-        pincel.strokeStyle = 'black';
-        pincel.strokeRect(x, y, largura, altura);
+    function mostra (frase) {
+        document.write(frase);
     }
 
-    function desenhaTexto(x, y, texto) {
-        var tela = document.querySelector('canvas');
-        var pincel = tela.getContext('2d');
+    var numeroPensado = Math.round(Math.random() * 10);
+    var input = document.querySelector("input");
+        input.focus();
+    var chance = 1;
 
-        pincel.font = '15px Georgia';
-        pincel.fillStyle = 'black';
-        pincel.fillText(texto, x, y);
+    function reinicio () {
+
     }
 
-    function desenhaBarra(x, y, serie, cores, texto, porcentagem) {
-
-        for (var i = 0; i < serie.length; i++) {
-            altura = serie[i];
-            cor = cores[i];
-            desenhaRetangulo(x, y + py, altura, 50, cor);
-            py += altura
-        }
-        desenhaTexto(x + 5, y - 5, texto);
-        py = 0;
+    function fim () {
+        mostra("<h1> FIM </h1>")
     }
 
-    function desenhaLegenda(x, y, navegador, cores, serie, texto) {
-        for (var i = 0; i < serie.length; i++) {
-            var n = navegador[i];
-            cor = cores[i];
-            desenhaRetangulo(x, y, 20, 20, cor);
-            desenhaTexto(x - 15, y + 35, n);
-            x += 85;
-        }
-        if (serie == serie2015) {
-            for (var i = 0; i < serie.length; i++) {
-                altura = serie[i];
-                if (i >= 2) {
-                    desenhaTexto(x - 240, y - altura - 30, altura + '%');
-                } else {
-                    desenhaTexto(x - 240, y - altura - 52, altura + '%');
-                }
-            }
+    function fimDeJogo() {
+        mostra("<b>Deseja jogar novamente?</b><br>");
+        mostra("<button type=text id=Sim>Sim</button>");
+        mostra("<button type=text id=Não>Não</button>");
+        var reiniciar = document.querySelector("#Sim");
+        reiniciar.onclick = 
+        var encerrar = document.querySelector("#Não");
+        encerrar.onclick = fim;
+    }
+
+    function verifica (){
+        if(input.value == numeroPensado) {
+            alert("Parabéns! Você acertou!");
+            chance = chance + 3;
+            fimDeJogo();
+        } else if (chance < 3) {
+            alert("Que pena! Você errou. Tente novamente.");
+            chance++;
+            input.value = " ";
+            input.focus();
+            return;
         } else {
-            for (var i = 0; i < serie.length; i++) {
-                altura = serie[i];
-                if (i == 0) {
-                    desenhaTexto(x - 90, y - altura - 45, altura + '%');
-                }
-                if (i == 1) {
-                    desenhaTexto(x - 90, y - altura - 41, altura + '%');
-                }
-                if (i == 2) {
-                    desenhaTexto(x - 90, y - altura - 32, altura + '%');
-                } if (i == 3) {
-                    desenhaTexto(x - 90, y - altura - 24, altura + '%');
-                }
-                //desenhaTexto(x-100, y-altura-28 , altura +'%');     
-            }
+            alert("Suas chances acabaram! O número pensado era " + numeroPensado);
+            fimDeJogo();
         }
     }
 
-    desenhaBarra(100, 50, serie2015, cores, '2015');
-    desenhaBarra(250, 50, serie2016, cores, '2016');
-    desenhaLegenda(60, 190, navegador, cores, serie2015);
-    desenhaLegenda(60, 190, navegador, cores, serie2016);
+    var button = document.querySelector("button");
+    button.onclick = verifica;
+
+
 
 </script>

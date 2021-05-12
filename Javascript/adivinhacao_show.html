@@ -1,0 +1,48 @@
+<meta charset="UTF-8">
+
+<script>
+
+    function pulaLinha() {
+
+        document.write("<br>");
+        document.write("<br>");
+}
+
+    function mostra(frase) {
+
+        document.write(frase);
+        pulaLinha();
+}
+
+var numeroPensado = Math.round(Math.random() * 100);
+console.log(numeroPensado);
+var tentativas = 1;
+var x5 = Math.round(Math.random() * 6);
+var y5 = Math.round(Math.random() * 6);
+var nMenor = numeroPensado - x5;
+var nMaior = numeroPensado + y5;
+
+while(tentativas <= 5) {
+
+    var chute = parseInt(prompt("Pensei em um número entre 0 e 100, você consegue adivinhar qual é?"));
+
+    if(chute == numeroPensado) {
+
+        alert("Você ACERTOU, o número pensado era " + numeroPensado);
+        break;
+
+    } else {
+
+        if(tentativas <= 3) {
+            alert("Você ERROU, tente novamente.");
+        } else {
+            if(tentativas == 4)
+            alert("Você ERROU, última chance, o número que eu pensei está entre " + nMenor + " e " + nMaior);
+        }
+    }
+
+    tentativas++;
+}
+
+mostra("FIM");
+</script>

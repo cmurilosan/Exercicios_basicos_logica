@@ -1,0 +1,32 @@
+<canvas width="600" height="400">
+
+    <script>
+    
+        var tela = document.querySelector("canvas");
+        var pincel = tela.getContext("2d");
+    
+        pincel.fillStyle = "black";
+        pincel.fillRect(0,0,600,400);
+    
+        function desenhaHexagono (x,y){
+    
+    
+            pincel.fillStyle = "lightgray";
+            pincel.beginPath();
+            pincel.moveTo(x,y+32);
+            pincel.lineTo(50+x,2+y);
+            pincel.lineTo(98+x,32+y);
+            pincel.lineTo(98+x,88+y);
+            pincel.lineTo(50+x,118+y);
+            pincel.lineTo(x,88+y);
+            pincel.fill();
+        }
+    
+        for(var x = 2; x < 600; x = x + 100){
+            desenhaHexagono (x,2);
+            for(var y = 0; y < 400; y = y + 120){
+                desenhaHexagono (x,y);
+            }
+        }
+    
+    </script>

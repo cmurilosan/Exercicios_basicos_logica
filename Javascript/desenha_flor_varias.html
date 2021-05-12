@@ -1,0 +1,37 @@
+<canvas width="600" height="400">
+
+    <script>
+    
+        function desenhaFlor (x,y){
+    
+            var tela = document.querySelector("canvas");
+            var pincel = tela.getContext("2d");
+    
+            pincel.fillStyle = "red";
+            pincel.beginPath();
+            pincel.arc(x,y,10,0,2*3.14);
+            pincel.fill();
+    
+            for(var i=-20;i<=20;i=i+40){
+                    pincel.fillStyle = "purple";
+                    pincel.beginPath();
+                    pincel.arc(x+i,y,10,0,2*3.14);
+                    pincel.fill();
+                for(var j=-20;j<=20;j=j+40){
+                    pincel.fillStyle = "purple";
+                    pincel.beginPath();
+                    pincel.arc(x,y+j,10,0,2*3.14);
+                    pincel.fill();
+                }
+            }
+        }
+    
+    
+        for(var x = 30; x < 600; x = x + 80){
+            desenhaFlor (x,30);
+            for(var y = 30; y < 400; y = y + 80){
+                desenhaFlor (x,y);
+            }
+        }
+    
+    </script>
